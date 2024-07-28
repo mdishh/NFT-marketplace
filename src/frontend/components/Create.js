@@ -13,7 +13,7 @@ const Create = ({ marketplace, nft }) => {
   const [description, setDescription] = useState('')
   const [error,setError]=useState('');
   const nav=useNavigate();
-  const pinata = new pinataSDK({ pinataJWTKey: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI3YjM3N2I0Mi05ZTljLTRiOTUtYTJiZi05YmVmMDNkNTU5YTQiLCJlbWFpbCI6Im1kNDg5MzM4MUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMTJiMjk4NDlkODc4YmYwZmY1NjIiLCJzY29wZWRLZXlTZWNyZXQiOiI3NjUxYTY3NzJlZTVkMmYwN2MwZmViMThkOGI1MWEyM2NkMTFiOWE2NjEzNWE3MTA2NzY3OGExM2NmYmI0MjBiIiwiaWF0IjoxNzE0MTAyNTE1fQ._aikZmmY6tKCaKHZwsr8XKWOyD6hxhz-bZ2S0l8M7Dw'});
+  const pinata = new pinataSDK({ pinataJWTKey: 'YOUR_SECRET_KEY'});
 
   const uploadToIPFS = async (event) => {
     console.log("inside upload");
@@ -29,8 +29,8 @@ const Create = ({ marketplace, nft }) => {
           url:"https://api.pinata.cloud/pinning/pinFileToIPFS",
           data: formData,
           headers:{
-            pinata_api_key:`12b29849d878bf0ff562`,
-            pinata_secret_api_key:`7651a6772ee5d2f07c0feb18d8b51a23cd11b9a66135a71067678a13cfbb420b`,
+            pinata_api_key:`YOUR_API_KEY`,
+            pinata_secret_api_key:`YOUR_SECRET_API_KEY`,
             "Content-Type":"multipart/form-data",
           },});
         setImage(`https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`);
@@ -52,20 +52,20 @@ const Create = ({ marketplace, nft }) => {
         url:"https://api.pinata.cloud/pinning/pinJSONToIPFS",
         data: data,
         headers:{
-          'Authorization': `Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VySW5mb3JtYXRpb24iOnsiaWQiOiI3YjM3N2I0Mi05ZTljLTRiOTUtYTJiZi05YmVmMDNkNTU5YTQiLCJlbWFpbCI6Im1kNDg5MzM4MUBnbWFpbC5jb20iLCJlbWFpbF92ZXJpZmllZCI6dHJ1ZSwicGluX3BvbGljeSI6eyJyZWdpb25zIjpbeyJpZCI6IkZSQTEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX0seyJpZCI6Ik5ZQzEiLCJkZXNpcmVkUmVwbGljYXRpb25Db3VudCI6MX1dLCJ2ZXJzaW9uIjoxfSwibWZhX2VuYWJsZWQiOmZhbHNlLCJzdGF0dXMiOiJBQ1RJVkUifSwiYXV0aGVudGljYXRpb25UeXBlIjoic2NvcGVkS2V5Iiwic2NvcGVkS2V5S2V5IjoiMTJiMjk4NDlkODc4YmYwZmY1NjIiLCJzY29wZWRLZXlTZWNyZXQiOiI3NjUxYTY3NzJlZTVkMmYwN2MwZmViMThkOGI1MWEyM2NkMTFiOWE2NjEzNWE3MTA2NzY3OGExM2NmYmI0MjBiIiwiaWF0IjoxNzE0MTAyNTE1fQ._aikZmmY6tKCaKHZwsr8XKWOyD6hxhz-bZ2S0l8M7Dw`,
-          pinata_api_key:`12b29849d878bf0ff562`,
-            pinata_secret_api_key:`7651a6772ee5d2f07c0feb18d8b51a23cd11b9a66135a71067678a13cfbb420b`,
+          'Authorization': `Bearer YOUR_API_KEY`,
+          pinata_api_key:`YOUR_API_KEY`,
+            pinata_secret_api_key:`YOUR_SECRET_API_KEY`,
             "Content-Type":"application/json",
         },
       });
       //const response = await pinata.pinJSONToIPFS(data);
       const url=`https://gateway.pinata.cloud/ipfs/${response.data.IpfsHash}`;
       console.log(url)
-      console.log("YEAAAA");
+      
       await mintThenList(response)
 
     } catch(error) {
-      console.log("hello 3");
+     
       console.log("ipfs uri upload error: ", error)
     }
   }
